@@ -1,0 +1,135 @@
+/*
+Complete Course.cpp by implementing the PrintRoster() function, which outputs a list of all students enrolled in a course and also the total number of students in the course.
+
+Given files:
+
+main.cpp - contains the main function for testing the program.
+Course.cpp - represents a course, which contains a vector of Student objects as a course roster. (Type your code in here)
+Course.h - header file for the Course class.
+Student.cpp - represents a classroom student, which has three data members: first name, last name, and GPA.
+Student.h - header file for the Student class.
+Ex: If the program has 4 students enrolled in the course, the output looks like:
+
+Henry Cabot (GPA: 3.5)
+Brenda Stern (GPA: 2.1)
+Jane Flynn (GPA: 3.9)
+Lynda Robison (GPA: 3.2)
+Students: 4
+*/
+
+
+
+// course.cpp
+#include "Course.h"
+#include "Student.h"
+
+using namespace std;
+
+void Course:: PrintRoster(){
+	for (int i = 0; i < roster.size(); i++){
+		cout << roster[i].GetFirst() << " " << roster[i].GetLast() << " (GPA: " << roster[i].GetGPA() << ")" << endl;
+		
+	}
+	cout << "Students: " << roster.size();
+}
+
+void Course::AddStudent(Student s) {
+	roster.push_back(s);
+}
+
+
+
+// course.h
+#ifndef COURSE_H_
+#define COURSE_H_
+
+#include <iostream>
+#include <vector>
+
+#include "Student.h"
+using namespace std;
+
+class Course {
+   public:
+	   void PrintRoster();
+//		string GetCode();
+		void AddStudent(Student);
+
+   private:
+      vector<Student> roster;
+};
+
+#endif /* COURSE_H_ */
+
+
+
+// main.cpp
+#include <iostream>
+
+#include "Course.h"
+#include "Student.h"
+using namespace std;
+
+int main() {
+
+	Course course = Course();
+
+	course.AddStudent(Student("Henry", "Cabot", 3.5));
+	course.AddStudent(Student("Brenda", "Stern", 2.1));
+	course.AddStudent(Student("Jane", "Flynn", 3.9));
+	course.AddStudent(Student("Lynda", "Robison", 3.2));
+
+	course.PrintRoster();
+
+	return 0;
+}
+
+
+
+// student.h
+#ifndef STUDENT_H_
+#define STUDENT_H_
+
+#include <iostream>
+
+using namespace std;
+
+class Student {
+    public:
+	   Student(string, string, double);
+		double GetGPA();
+		string GetFirst();
+		string GetLast();
+
+    private:
+        string first;
+        string last;
+        double gpa;
+};
+
+#endif /* STUDENT_H_ */
+
+
+
+// student.cpp
+#include "Student.h"
+
+using namespace std;
+
+Student::Student(string f, string l, double g) {
+	first = f; // first name
+	last = l;  // last name
+	gpa = g;   // grade point average
+}
+
+double Student::GetGPA() {
+	return gpa;
+}
+
+string Student::GetFirst() {
+	return first;
+}
+
+string Student::GetLast() {
+	return last;
+}
