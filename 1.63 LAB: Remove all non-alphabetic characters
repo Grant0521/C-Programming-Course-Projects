@@ -1,0 +1,36 @@
+/* 
+Write a program that removes all non-alphabetic characters from the given input.
+
+Ex: If the input is:
+
+-Hello, 1 world$!
+the output is:
+
+Helloworld
+Your program must define and call the following function that takes a string as a parameter and returns the string without any non-alphabetic characters.
+string RemoveNonAlpha(string userString)
+*/
+
+#include <iostream>
+using namespace std;
+
+string RemoveNonAlpha(string allChar) {
+   string alphaChar;
+   
+   alphaChar = "";
+   for (int i = 0; i < allChar.size(); i++) {
+      if (isalpha(allChar[i])) {
+         alphaChar.push_back(allChar[i]);
+      }
+   }
+   return alphaChar;
+}
+
+int main() {
+   string allChar;
+   
+   getline(cin, allChar);
+   cout << RemoveNonAlpha(allChar) << endl;
+
+   return 0;
+}
