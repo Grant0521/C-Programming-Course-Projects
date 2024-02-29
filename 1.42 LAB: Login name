@@ -1,0 +1,33 @@
+/* 
+Write a program that creates a login name for a user, given the user's first name, last name, and a four-digit integer as input. Output the login name, 
+which is made up of the first five letters of the last name, followed by the first letter of the first name, 
+and then the last two digits of the number (use the % operator). If the last name has less than five letters, then use all letters of the last name.
+*/
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main() {
+	string login;
+	string first;
+	string last;
+	int number;
+
+	cin >> first;
+	cin >> last;
+	cin >> number;
+	
+	cout << "Your login name: ";
+	
+	if (last.size() < 5) {
+	   cout << last.substr(0, last.size());
+	} 
+	else {
+	   cout << last.substr(0, 5);
+	}
+	
+	cout << first.at(0) << number % 100 << endl;
+	
+	return 0;
+}
