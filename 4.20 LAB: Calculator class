@@ -1,0 +1,135 @@
+/*
+Given main(), complete the Calculator class (in files Calculator.h and Calculator.cpp) that emulates basic functions of a calculator: add, subtract, multiple, divide, and clear. The class has one private data member called value for the calculator's current value. Implement the following constructor and public member functions as listed below:
+
+Calculator() - default constructor to set the data member to 0.0
+void Add(double val) - add the parameter to the data member
+void Subtract(double val) - subtract the parameter from the data member
+void Multiply(double val) - multiply the data member by the parameter
+void Divide(double val) - divide the data member by the parameter
+void Clear( ) - set the data member to 0.0
+double GetValue( ) - return the data member
+Given two double input values num1 and num2, the program outputs the following values:
+
+The initial value of the data member, value
+The value after adding num1
+The value after multiplying by 3
+The value after subtracting num2
+The value after dividing by 2
+The value after calling the clear() method
+Ex: If the input is:
+
+10.0 5.0
+the output is:
+
+0.0
+10.0
+30.0
+25.0
+12.5
+0.0
+*/
+
+
+
+// main.cpp
+#include <iostream>
+#include <iomanip>
+#include "Calculator.h"
+using namespace std;
+
+int main() {
+   Calculator calc;
+	double num1;
+	double num2; 
+	
+	cin >> num1;
+	cin >> num2;
+	
+	cout << fixed << setprecision(1);
+	// 1. The initial value
+	cout << calc.GetValue() << endl;
+		
+	// 2. The value after adding num1
+	calc.Add(num1);
+	cout << calc.GetValue() << endl;
+		
+	// 3. The value after multiplying by 3
+	calc.Multiply(3);
+	cout << calc.GetValue() << endl;
+		
+	// 4. The value after subtracting num2
+	calc.Subtract(num2);
+	cout << calc.GetValue() << endl;
+		
+	// 5. The value after dividing by 2
+	calc.Divide(2);
+	cout << calc.GetValue() << endl;
+		
+	// 6. The value after calling the clear() method
+	calc.Clear();
+	cout << calc.GetValue() << endl;
+
+   return 0;
+}
+
+
+
+// calculator.h
+#ifndef CALCULATORH
+#define CALCULATORH
+
+class Calculator {
+	public:	
+	   Calculator();
+
+      void Add(double val);
+      
+      void Subtract(double val);
+      
+      void Multiply(double val);
+      
+      void Divide(double val);
+      
+      void Clear();
+      
+      double GetValue();
+	private:
+      double value;
+};
+
+#endif
+
+
+
+// Calculator.cpp
+#include <iostream>
+#include "Calculator.h"
+using namespace std;
+
+Calculator::Calculator() {
+   value = 0.0;
+}
+
+void Calculator::Add(double val) {
+   value += val;
+}
+      
+void Calculator::Subtract(double val) {
+   value -= val;
+}
+      
+void Calculator::Multiply(double val) {
+   value *= val;
+}
+      
+void Calculator::Divide(double val) {
+   value /= val;
+}
+      
+void Calculator::Clear() {
+   value = 0.0;
+}
+      
+double Calculator::GetValue() {
+   return value;
+}
