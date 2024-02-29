@@ -1,0 +1,92 @@
+/*
+In the Student.cpp file and Student.h file, build the Student class with the following specifications:
+
+Private data members
+string name - Initialized in default constructor to "Louie"
+double gpa - Initialized in default constructor to 1.0
+Default constructor
+Public member functions
+SetName() - sets the student's name
+GetName() - returns the student's name
+SetGPA() - sets the student's GPA
+GetGPA() - returns the student's GPA
+Ex. If a new Student object is created, the default constructor sets name to "Louie" and gpa to 1. The output of GetName() and GetGPA() before and after calling SetName("Felix") and SetGPA(3.7) is:
+
+Louie/1
+Felix/3.7
+*/
+
+
+// main.cpp
+#include <iostream>
+#include <vector>
+
+#include "Student.h"
+using namespace std;
+
+int main() {
+    Student student = Student();
+    cout << student.GetName() << "/" << student.GetGPA() << endl;
+
+    student.SetName("Felix");
+    student.SetGPA(3.7);
+    cout << student.GetName() << "/" << student.GetGPA() << endl;
+
+	return 0;
+}
+
+
+
+// student.h
+#ifndef STUDENT_H_
+#define STUDENT_H_
+
+#include <iostream>
+using namespace std;
+
+class Student {
+   public:
+      Student();
+   	void SetName(string n);
+   	string GetName();
+      void SetGPA(double g);
+      double GetGPA();
+   	 
+   private:
+      string name;
+      double gpa;
+};
+
+#endif /* STUDENT_H_ */
+
+
+
+
+// student.cpp
+#include "Student.h"
+
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+Student::Student() {
+    name = "Louie";
+    gpa = 1;
+}
+
+void Student::SetName(string n) {
+    name = n;
+}
+
+string Student::GetName() {
+    return name;
+}
+
+void Student::SetGPA(double g) {
+    gpa = g;
+}
+
+double Student::GetGPA() {
+    return gpa;
+}
