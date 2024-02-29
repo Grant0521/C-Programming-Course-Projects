@@ -1,0 +1,144 @@
+/* 
+Given main(), define the BankAccount class (in files BankAccount.h and BankAccount.cpp) that manages checking and savings accounts. The class has three private data members:
+
+customer name (string)
+savings account balance (double)
+checking account balance (double)
+Implement the following constructor and public member functions as listed below:
+
+BankAccount(string newName, double amt1, double amt2) - set the customer name to parameter newName, set the checking account balance to parameter amt1 and set the savings account balance to parameter amt2. (amt stands for amount)
+void SetName(string newName) - set the customer name to parameter newName
+string GetName() - return the customer name
+void SetChecking(double amt) - set the checking account balance to parameter amt
+double GetChecking() - return the checking account balance
+void SetSavings(double amt) - set the savings account balance to parameter amt
+double GetSavings() - return the savings account balance
+void DepositChecking(double amt) - add parameter amt to the checking account balance (only if positive)
+void DepositSavings(double amt) - add parameter amt to the savings account balance (only if positive)
+void WithdrawChecking(double amt) - subtract parameter amt from the checking account balance (only if positive)
+void WithdrawSavings(double amt) - subtract parameter amt from the savings account balance (only if positive)
+void TransferToSavings(double amt) - subtract parameter amt from the checking account balance and add to the savings account balance (only if positive)
+*/ 
+
+
+
+// BackAccount.h
+#ifndef BANKACCOUNTH
+#define BANKACCOUNTH
+
+#include <string>
+using namespace std;
+
+class BankAccount {
+   public:
+      BankAccount(string newName, double amt1, double amt2);
+      void SetName(string newName);
+      string GetName() const;
+      void SetChecking(double amt);
+      double GetChecking() const;
+      void SetSavings(double amt);
+      double GetSavings() const;
+      void DepositChecking(double amt);
+      void DepositSavings(double amt);
+      void WithdrawChecking(double amt);
+      void WithdrawSavings(double amt);
+      void TransferToSavings(double amt);
+   
+   private:
+      string customerName;
+      double savingsAcc;
+      double checkingAcc;
+};
+
+#endif
+
+
+
+// BackAccount.cpp
+#include <iostream>
+#include "BankAccount.h"
+using namespace std;
+
+BankAccount::BankAccount(string newName, double amt1, double amt2) {
+   customerName = newName;
+   checkingAcc = amt1;
+   savingsAcc = amt2;
+}
+
+void BankAccount::SetName(string newName) {
+   customerName = newName;
+}
+
+string BankAccount::GetName() const {
+   return customerName;
+}
+
+void BankAccount::SetChecking(double amt) {
+   checkingAcc = amt;
+}
+      
+double BankAccount::GetChecking() const {
+   return checkingAcc;
+}
+      
+void BankAccount::SetSavings(double amt) {
+   savingsAcc = amt;
+}
+      
+double BankAccount::GetSavings() const {
+   return savingsAcc;
+}
+      
+void BankAccount::DepositChecking(double amt) {
+   if (amt > 0) {
+      checkingAcc += amt;
+   }
+}
+      
+void BankAccount::DepositSavings(double amt) {
+   if (amt > 0) {
+      savingsAcc += amt;
+   }
+}
+      
+void BankAccount::WithdrawChecking(double amt) {
+   if (amt > 0) {
+      checkingAcc -= amt;
+   }
+}
+      
+void BankAccount::WithdrawSavings(double amt) {
+   if (amt > 0) {
+      savingsAcc -= amt;
+   }
+}
+      
+void BankAccount::TransferToSavings(double amt) {
+   if (amt > 0) {
+      checkingAcc -= amt;
+      savingsAcc += amt;
+   }
+}
+
+
+ // main.cpp
+#include <iostream>
+#include <iomanip>
+#include "BankAccount.h"
+using namespace std;
+
+int main() {
+   BankAccount account("Mickey", 500.00, 1000.00);
+   account.SetChecking(500);
+   account.SetSavings(500);
+   account.WithdrawSavings(100);
+   account.WithdrawChecking(100);
+   account.TransferToSavings(300);
+
+   cout << account.GetName() << endl;
+   cout << fixed << setprecision(2);
+   cout << account.GetChecking() << endl;
+   cout << account.GetSavings() << endl;
+
+   return 0;
+}
