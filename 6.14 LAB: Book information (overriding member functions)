@@ -1,0 +1,215 @@
+/*
+Given main() and a base Book class, define a derived class called Encyclopedia with member functions to get and set private class data members of the following types:
+
+string to store the edition
+int to store the number of pages
+Within the derived Encyclopedia class, define a PrintInfo() member function that overrides the Book class' PrintInfo() function by printing the title, author, publisher, publication date, edition, and number of pages.
+
+Ex. If the input is:
+
+The Hobbit
+J. R. R. Tolkien
+George Allen & Unwin
+21 September 1937
+The Illustrated Encyclopedia of the Universe
+Ian Ridpath
+Watson-Guptill
+2001
+2nd
+384
+the output is:
+
+Book Information: 
+   Book Title: The Hobbit
+   Author: J. R. R. Tolkien
+   Publisher: George Allen & Unwin
+   Publication Date: 21 September 1937
+Book Information: 
+   Book Title: The Illustrated Encyclopedia of the Universe
+   Author: Ian Ridpath
+   Publisher: Watson-Guptill
+   Publication Date: 2001
+   Edition: 2nd
+   Number of Pages: 384
+*/
+
+
+
+// main.cpp
+#include "Book.h"
+#include "Encyclopedia.h"
+#include <string>
+#include <iostream>
+using namespace std;
+
+int main() {
+   Book myBook;
+   Encyclopedia myEncyclopedia;
+
+   string title, author, publisher, publicationDate;
+   string eTitle, eAuthor, ePublisher, ePublicationDate, edition;
+   int numPages;
+
+   getline(cin, title);
+   getline(cin, author);
+   getline(cin, publisher);
+   getline(cin, publicationDate);
+
+   getline(cin, eTitle);
+   getline(cin, eAuthor);
+   getline(cin, ePublisher);
+   getline(cin, ePublicationDate);
+   getline(cin, edition);
+   cin >> numPages;
+
+   myBook.SetTitle(title);
+   myBook.SetAuthor(author);
+   myBook.SetPublisher(publisher);
+   myBook.SetPublicationDate(publicationDate);
+   myBook.PrintInfo();
+
+   myEncyclopedia.SetTitle(eTitle);
+   myEncyclopedia.SetAuthor(eAuthor);
+   myEncyclopedia.SetPublisher(ePublisher);
+   myEncyclopedia.SetPublicationDate(ePublicationDate);
+   myEncyclopedia.SetEdition(edition);
+   myEncyclopedia.SetNumPages(numPages);
+   myEncyclopedia.PrintInfo();
+
+   return 0;
+ }
+
+
+
+// book.h
+#ifndef BOOKH
+#define BOOKH
+
+#include <string>
+
+using namespace std;
+
+class Book {
+   public:
+      void SetTitle(string userTitle);
+
+      string GetTitle();
+
+      void SetAuthor(string userAuthor);
+
+      string GetAuthor();
+
+      void SetPublisher(string userPublisher);
+
+      string GetPublisher();
+
+      void SetPublicationDate(string userPublicationDate);
+
+      string GetPublicationDate();
+
+      void PrintInfo();
+
+   protected:
+      string title;
+      string author;
+      string publisher;
+      string publicationDate;
+};
+
+#endif
+
+
+
+// book.cpp
+#include "Book.h"
+#include <iostream>
+
+void Book::SetTitle(string userTitle) {
+   title = userTitle;
+}
+
+string Book::GetTitle() {
+   return title;
+}
+
+void Book::SetAuthor(string userAuthor) {
+   author = userAuthor;
+}
+
+string Book::GetAuthor() {
+   return author;
+}
+
+void Book::SetPublisher(string userPublisher) {
+   publisher = userPublisher;
+}
+
+string Book::GetPublisher() {
+   return publisher;
+}
+
+void Book::SetPublicationDate(string userPublicationDate) {
+   publicationDate = userPublicationDate;
+}
+
+string Book::GetPublicationDate() {
+   return publicationDate;
+}
+
+void Book::PrintInfo() {
+   cout << "Book Information: " << endl;
+   cout << "   Book Title: " << title << endl;
+   cout << "   Author: " << author << endl;
+   cout << "   Publisher: " << publisher << endl;
+   cout << "   Publication Date: " << publicationDate << endl;
+}
+
+
+
+// encyclopedia.h
+#ifndef ENCYCLOPEDIAH
+#define ENCYCLOPEDIAH
+
+#include "Book.h"
+
+class Encyclopedia : public Book {
+   public:
+      void SetEdition(string startEdition);
+      void SetNumPages(int startNumPages);
+      string GetEdition() const;
+      int GetNumPages() const;
+      void PrintInfo();
+
+   private:
+      string edition;
+      int numPages;
+};
+
+#endif
+
+
+
+// encyclopedia.cpp
+#include "Encyclopedia.h"
+#include <iostream>
+
+void Encyclopedia::SetEdition(string startEdition) {
+   edition = startEdition;
+}
+
+void Encyclopedia::SetNumPages(int startNumPages) {
+   numPages = startNumPages;
+}
+
+string Encyclopedia::GetEdition() const {
+   return edition;
+}
+
+int Encyclopedia::GetNumPages() const {
+   return numPages;
+}
+
+void Encyclopedia::PrintInfo() {
+   Book::PrintInfo();
+   cout << "   Edition: " << edition << endl << "   Number of Pages: " << numPages << endl;
+}
