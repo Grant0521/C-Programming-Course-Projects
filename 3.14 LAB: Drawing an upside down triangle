@@ -1,0 +1,57 @@
+/*
+Write a recursive function called DrawTriangle() that outputs lines of '*' to form an upside down isosceles triangle. Function DrawTriangle() has one parameter, an integer representing the base length of the triangle. Assume the base length is always odd and less than 20. Output 9 spaces before the first '*' on the last line for correct formatting.
+
+Hint: The number of '*' decreases by 2 for every line drawn.
+
+Ex: If the input of the program is:
+
+3
+the function DrawTriangle() outputs:
+
+        ***
+         *
+Ex: If the input of the program is:
+
+19
+the function DrawTriangle() outputs:
+
+*******************
+ *****************
+  ***************
+   *************
+    ***********
+     *********
+      *******
+       *****
+        ***
+         *
+Note: No space is output before the first '*' on the first line when the base length is 19.
+*/
+
+#include <iostream>
+using namespace std;
+
+void DrawTriangle(int baseLength) {
+   int l = baseLength / 2;
+   if (baseLength > 0) {
+      for (int i = 1; i < 10 - l ; i++) {
+         cout << " ";
+      }
+      for (int i = 0; i < baseLength; i++) {
+         cout << "*";
+      }
+      cout << endl;;
+      if(baseLength % 2 == 1) {
+         baseLength -= 1;
+      }
+      DrawTriangle(baseLength - 1);
+   }
+}
+
+int main() {
+   int baseLength;
+   
+   cin >> baseLength;
+   DrawTriangle(baseLength);
+   return 0;
+}
