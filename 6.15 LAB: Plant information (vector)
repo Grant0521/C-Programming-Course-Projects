@@ -1,0 +1,222 @@
+/*
+Given a base Plant class and a derived Flower class, complete main() to create a vector called myGarden. The vector should be able to store objects that belong to the Plant class or the Flower class. Create a function called PrintVector(), that uses the PrintInfo() functions defined in the respective classes and prints each element in myGarden. The program should read plants or flowers from input (ending with -1), add each Plant or Flower to the myGarden vector, and output each element in myGarden using the PrintInfo() function.
+
+Ex. If the input is:
+
+plant Spirea 10
+flower Hydrangea 30 false lilac
+flower Rose 6 false white
+plant Mint 4
+-1
+the output is:
+
+Plant 1 Information:
+   Plant name: Spirea
+   Cost: 10
+
+Plant 2 Information:
+   Plant name: Hydrangea
+   Cost: 30
+   Annual: false
+   Color of flowers: lilac
+
+Plant 3 Information:
+   Plant name: Rose
+   Cost: 6
+   Annual: false
+   Color of flowers: white
+
+Plant 4 Information:
+   Plant name: Mint
+   Cost: 4
+*/
+
+
+
+// main.cpp
+#include "Plant.h"
+#include "Flower.h"
+#include <vector>
+#include <string>
+#include <iostream>
+
+using namespace std;
+
+void PrintVector(vector<Plant*> myGarden) {
+   for (int i = 0; i < myGarden.size(); ++i) {
+      cout << "Plant " << i + 1 << " Information:" << endl;
+      myGarden[i]->PrintInfo();
+      cout<<endl;
+   }
+}
+
+int main() {
+
+vector<Plant*> myGarden;
+
+string plantName, flowerName, buff;
+int plantCost, flowerCost;
+string colorOfFlowers;
+bool isAnnual;
+
+Flower *flower;
+Plant *plant;
+
+string input;
+cin >> input;
+
+while(input != "-1") {
+   if(input == "plant") {
+      plant = new Plant;
+      cin >> plantName;
+      cin >> plantCost;
+      plant->SetPlantName(plantName);
+      plant->SetPlantCost(plantCost);
+      myGarden.push_back(plant);
+   }
+   else if (input == "flower") {
+      flower = new Flower;
+      cin >> flowerName;
+      cin >> flowerCost;
+      cin >> buff;
+      if (buff == "true") {
+         isAnnual = true;
+      }
+      else {
+         isAnnual = false;
+      }
+      cin >> colorOfFlowers;
+      flower->SetPlantName(flowerName);
+      flower->SetPlantCost(flowerCost);
+      flower->SetPlantType(isAnnual);
+      flower->SetColorOfFlowers(colorOfFlowers);
+      myGarden.push_back(flower);
+   }
+   cin >> input;
+}
+
+PrintVector(myGarden);
+
+for (int i = 0; i < myGarden.size(); ++i) {
+   delete myGarden.at(i);
+}
+
+return 0;
+}
+
+
+
+// plant.h
+#ifndef PLANTH
+#define PLANTH
+
+#include <string>
+using namespace std;
+
+class Plant {
+   public:
+      virtual ~Plant();
+
+      void SetPlantName(string userPlantName);
+
+      string GetPlantName() const;
+
+      void SetPlantCost(int userPlantCost);
+
+      int GetPlantCost() const;
+
+      virtual void PrintInfo() const;
+
+   protected:
+      string plantName;
+      int plantCost;
+};
+
+#endif
+
+
+
+// plant.cpp
+#include "Plant.h"
+#include <iostream>
+
+Plant::~Plant() {};
+
+void Plant::SetPlantName(string userPlantName) {
+   plantName = userPlantName;
+}
+
+string Plant::GetPlantName() const {
+   return plantName;
+}
+
+void Plant::SetPlantCost(int userPlantCost) {
+   plantCost = userPlantCost;
+}
+
+int Plant::GetPlantCost() const {
+   return plantCost;
+}
+
+void Plant::PrintInfo() const {
+   cout << "   Plant name: " << plantName << endl;
+   cout << "   Cost: " << plantCost << endl;
+}
+
+
+
+// flower.h
+#ifndef FLOWERH
+#define FLOWERH
+
+#include "Plant.h"
+#include <string>
+using namespace std;
+
+class Flower : public Plant {
+   public:
+      void SetPlantType(bool userIsAnnual);
+
+      bool GetPlantType() const;
+
+      void SetColorOfFlowers(string userColorOfFlowers);
+
+      string GetColorOfFlowers() const;
+
+      void PrintInfo() const;
+
+   private:
+      bool isAnnual;
+      string colorOfFlowers;
+};
+
+#endif
+
+
+
+// flower.cpp
+#include "Flower.h"
+#include <iostream>
+
+void Flower::SetPlantType(bool userIsAnnual) {
+   isAnnual = userIsAnnual;
+}
+
+bool Flower::GetPlantType() const {
+   return isAnnual;
+}
+
+void Flower::SetColorOfFlowers(string userColorOfFlowers) {
+   colorOfFlowers = userColorOfFlowers;
+}
+
+string Flower::GetColorOfFlowers() const {
+   return colorOfFlowers;
+}
+
+void Flower::PrintInfo() const {
+   cout << "   Plant name: " << plantName << endl;
+   cout << "   Cost: " << plantCost << endl;
+   cout << "   Annual: " << boolalpha << isAnnual << endl;
+   cout << "   Color of flowers: " << colorOfFlowers << endl;
+}
