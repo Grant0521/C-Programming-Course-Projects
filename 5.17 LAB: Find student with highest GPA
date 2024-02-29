@@ -1,0 +1,141 @@
+/* 
+5.17 LAB: Find student with highest GPA
+Complete the Course class by implementing the FindStudentHighestGpa() member function, which returns the Student object with the highest GPA in the course. Assume that no two students have the same highest GPA.
+
+Given classes:
+
+Class Course represents a course, which contains a vector of Student objects as a course roster. (Type your code in here.)
+Class Student represents a classroom student, which has three private data members: first name, last name, and GPA. (Hint: GetGPA() returns a student's GPA.)
+Note: For testing purposes, different student values will be used.
+
+Ex. For the following students:
+
+Henry Nguyen 3.5
+Brenda Stern 2.0
+Lynda Robison 3.2
+Sonya King 3.9
+the output is:
+
+Top student: Sonya King (GPA: 3.9)
+*/
+
+
+// course.cpp
+#include <iostream>
+#include "Course.h"
+using namespace std;
+
+Student Course::FindStudentHighestGpa() {
+   Student temp = roster[0];
+   
+   for (int i = 0; i < roster.size(); i++) {
+      if (roster[i].GetGPA() > temp.GetGPA()) {
+         temp = roster[i];
+      }
+   }
+    
+    return temp;
+}
+
+void Course::AddStudent(Student s) {
+	roster.push_back(s);
+}
+
+
+
+// course.h
+#include <iostream>
+#include "Course.h"
+using namespace std;
+
+Student Course::FindStudentHighestGpa() {
+   Student temp = roster[0];
+   
+   for (int i = 0; i < roster.size(); i++) {
+      if (roster[i].GetGPA() > temp.GetGPA()) {
+         temp = roster[i];
+      }
+   }
+    
+    return temp;
+}
+
+void Course::AddStudent(Student s) {
+	roster.push_back(s);
+}
+
+
+
+// main.cpp
+#include <iostream>
+#include <iomanip>
+#include <string>
+#include "Course.h"
+using namespace std;
+
+int main() {
+   Course course;
+   string fname;
+   string lname;
+   string gpa;
+   
+   // Example students for testing
+   course.AddStudent(Student("Henry", "Nguyen", 3.5));   
+   course.AddStudent(Student("Brenda", "Stern", 2.0)); 
+   course.AddStudent(Student("Lynda", "Robison", 3.2)); 
+   course.AddStudent(Student("Sonya", "King", 3.9)); 
+   
+   Student student = course.FindStudentHighestGpa();
+	cout << "Top student: " << student.GetFirst() << " " << student.GetLast() << " (GPA: " << student.GetGPA() << ")" << endl;
+	
+   return 0;
+}
+
+
+
+// student.h
+#ifndef STUDENT_H
+#define STUDENT_H
+
+#include <string>
+using namespace std;
+
+// Class representing a student
+class Student {
+   public:
+      Student(string first, string last, double gpa);
+      double GetGPA() ;
+      string GetLast();
+      string GetFirst();
+
+   private:
+      string first;  // first name
+	   string last;   // last name
+	   double gpa;    // grade point average
+};
+
+#endif
+
+
+
+// student.cpp
+#include "Student.h"
+
+// Student class constructor
+Student::Student(string first, string last, double gpa) {
+		this->first = first;    // first name
+		this->last = last;      // last name
+		this->gpa = gpa;        // grade point average
+}
+
+double Student::GetGPA() {
+		return gpa;
+}
+
+string Student::GetLast() {
+		return last;
+}
+
+string Student::GetFirst() {
+		return first;
+}
