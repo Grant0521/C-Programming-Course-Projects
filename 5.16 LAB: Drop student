@@ -1,0 +1,138 @@
+/*
+Complete the Course class by implementing the DropStudent() member function, which removes a student (by last name) from the course roster. If the student is not found in the course roster, no student should be dropped.
+
+Given classes:
+
+Class Course represents a course, which contains a vector of Student objects as a course roster. (Type your code in here.)
+Class Student represents a classroom student, which has three private data members: first name, last name, and GPA. (Hint: getLast() returns the last name field.)
+Note: For testing purposes, different student values will be used.
+
+Ex. For the following students:
+
+Henry Nguyen 3.5
+Brenda Stern 2.0
+Lynda Robison 3.2
+Sonya King 3.9
+the output for dropping Stern is:
+
+Course size: 4 students
+Course size after drop: 3 students
+*/
+
+
+
+// course.cpp
+#include <iostream>
+#include "Course.h"
+using namespace std;
+
+void Course::DropStudent(string last) {
+   for (int i = 0; i < roster.size(); i++) {
+      if (roster.at(i).GetLast() == last) {
+         roster.erase(roster.begin() + i);
+      }
+   }
+}
+
+void Course::AddStudent(Student s) {
+	roster.push_back(s);
+}
+
+int Course::CountStudents() {
+   return roster.size();
+}
+
+
+
+// course.h
+#ifndef COURSE_H
+#define COURSE_H
+
+#include <vector>
+#include "Student.h"
+
+class Course {
+   public: 
+      void DropStudent(string last);
+      void AddStudent(Student s);
+      int CountStudents();
+   
+   private:
+      vector<Student> roster; //collection of Student objects
+};
+
+#endif
+
+
+
+// main.cpp
+#include <iostream>
+#include <iomanip>
+#include <string>
+#include "Course.h"
+using namespace std;
+
+int main() {
+	Course cis162;
+   int beginCount;
+   string toDrop;
+   
+   // Example students for testing
+   cis162.AddStudent(Student("Henry", "Nguyen", 3.5));   
+   cis162.AddStudent(Student("Brenda", "Stern", 2.0)); 
+   cis162.AddStudent(Student("Lynda", "Robison", 3.2)); 
+   cis162.AddStudent(Student("Sonya", "King", 3.9)); 
+   toDrop = "Stern";
+   
+   beginCount = cis162.CountStudents();
+   cis162.DropStudent(toDrop);
+		
+	cout << "Course size: " << beginCount << " students" << endl;
+	cout << "Course size after drop: " << cis162.CountStudents() << " students" << endl;
+
+   return 0;
+}
+
+
+
+// student.h
+#ifndef STUDENT_H
+#define STUDENT_H
+
+#include <string>
+using namespace std;
+
+// Class representing a student
+class Student {
+   public:
+      Student(string first, string last, double gpa);
+      double GetGPA() ;
+      string GetLast();
+
+   private:
+      string first;  // first name
+	   string last;   // last name
+	   double gpa;    // grade point average
+};
+
+#endif
+
+
+
+// student.cpp
+#include "Student.h"
+
+// Student class constructor
+Student::Student(string first, string last, double gpa) {
+		this->first = first;    // first name
+		this->last = last;      // last name
+		this->gpa = gpa;        // grade point average
+}
+
+double Student::GetGPA() {
+		return gpa;
+}
+
+string Student::GetLast() {
+		return last;
+}
