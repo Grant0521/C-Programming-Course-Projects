@@ -1,0 +1,116 @@
+/*
+Complete the Course class by implementing the CourseSize() member function, which returns the total number of students in the course.
+
+Given classes:
+
+Class Course represents a course, which contains a vector of Student objects as a course roster. (Type your code in here.)
+Class Student represents a classroom student, which has three data members: first name, last name, and GPA.
+Note: For testing purposes, different student values will be used.
+
+Ex. For the following students:
+
+Henry Bendel 3.6
+Johnny Min 2.9
+the output is:
+
+Course size: 2
+*/
+
+
+// course.cpp
+#include <iostream>
+#include "Course.h"
+using namespace std;
+
+int Course::CourseSize() {
+	return roster.size();
+}
+
+void Course::AddStudent(Student s) {
+	roster.push_back(s);
+}
+
+
+
+// course.h
+#ifndef COURSE_H
+#define COURSE_H
+
+#include <vector>
+#include "Student.h"
+
+class Course {
+   public:
+      int CourseSize();  
+      void AddStudent(Student s);
+   
+   private:
+      vector<Student> roster; //collection of Student objects
+};
+
+#endif
+
+
+
+// main.cpp
+#include <iostream>
+#include <string>
+#include "Course.h"
+using namespace std;
+
+int main() {
+   Course course;
+   int count;
+   
+   course.AddStudent(Student("Henry", "Bendel", 3.6));   
+   course.AddStudent(Student("Johnny", "Min", 2.9)); 
+
+	count = course.CourseSize();
+	cout << "Course size: " << count << endl;
+
+   return 0;
+}
+
+
+
+// student.h
+#ifndef STUDENT_H
+#define STUDENT_H
+
+#include <string>
+using namespace std;
+
+// Class representing a student
+class Student {
+   public:
+      Student(string first, string last, double gpa);
+      double GetGPA() ;
+      string GetLast();
+
+   private:
+      string first;  // first name
+	   string last;   // last name
+	   double gpa;    // grade point average
+};
+
+#endif
+
+
+
+// student.cpp
+#include "Student.h"
+
+// Student class constructor
+Student::Student(string first, string last, double gpa) {
+		this->first = first;    // first name
+		this->last = last;      // last name
+		this->gpa = gpa;        // grade point average
+}
+
+double Student::GetGPA() {
+		return gpa;
+}
+
+string Student::GetLast() {
+		return last;
+}
