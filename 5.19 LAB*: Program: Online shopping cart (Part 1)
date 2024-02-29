@@ -1,0 +1,162 @@
+/*
+(1) Create three files to submit:
+
+ItemToPurchase.h - Class declaration
+ItemToPurchase.cpp - Class definition
+main.cpp - main() function
+Build the ItemToPurchase class with the following specifications:
+
+Default constructor
+Public class functions (mutators & accessors)
+SetName() & GetName() (2 pts)
+SetPrice() & GetPrice() (2 pts)
+SetQuantity() & GetQuantity() (2 pts)
+Private data members
+string itemName - Initialized in default constructor to "none"
+int itemPrice - Initialized in default constructor to 0
+int itemQuantity - Initialized in default constructor to 0
+(2) In main(), prompt the user for two items and create two objects of the ItemToPurchase class. Before prompting for the second item, call cin.ignore() to allow the user to input a new string. (2 pts)
+
+Ex:
+
+Item 1
+Enter the item name:
+Chocolate Chips
+Enter the item price:
+3
+Enter the item quantity:
+1
+
+Item 2
+Enter the item name:
+Bottled Water
+Enter the item price:
+1
+Enter the item quantity:
+10
+
+(3) Add the costs of the two items together and output the total cost. (2 pts)
+
+Ex:
+
+TOTAL COST
+Chocolate Chips 1 @ $3 = $3
+Bottled Water 10 @ $1 = $10
+
+Total: $13
+*/
+
+
+
+// main.cpp
+#include <iostream>
+using namespace std;
+
+#include "ItemToPurchase.h"
+
+int main() {
+   string itemName;
+	int itemPrice, itemQuantity, item1Cost, item2Cost, totalCost;
+
+	cout << "Item 1" << endl;
+	cout << "Enter the item name:" << endl;
+	getline(cin, itemName);
+	cout << "Enter the item price:" << endl;
+	cin >> itemPrice;
+	cout << "Enter the item quantity:" << endl;
+	cin >> itemQuantity;
+	ItemToPurchase item1 = ItemToPurchase(itemName, itemPrice, itemQuantity);
+
+	cout << endl << "Item 2" << endl;
+	cout << "Enter the item name:" << endl;
+	cin.ignore();
+	getline(cin, itemName);
+	cout << "Enter the item price:" << endl;
+	cin >> itemPrice;
+	cout << "Enter the item quantity:" << endl;
+	cin >> itemQuantity;
+	ItemToPurchase item2 = ItemToPurchase(itemName, itemPrice, itemQuantity);
+
+	cout << endl << "TOTAL COST" << endl;
+
+	item1Cost = item1.GetQuantity() * item1.GetPrice();
+	cout << item1.GetName() << " " << item1.GetQuantity() << " @ $" << item1.GetPrice() << " = $" << item1Cost << endl;
+
+	item2Cost = item2.GetQuantity() * item2.GetPrice();
+	cout << item2.GetName() << " " << item2.GetQuantity() << " @ $" << item2.GetPrice() << " = $" << item2Cost << endl;
+
+	totalCost = item1Cost + item2Cost;
+	cout << endl << "Total: $" << totalCost << endl;
+   
+   return 0;
+}
+
+
+
+// ItemToPurchase.cpp
+#include <string>
+#include "ItemToPurchase.h"
+
+using namespace std;
+ItemToPurchase::ItemToPurchase() {
+	itemName = "none";
+	itemPrice = 0;
+	itemQuantity = 0;
+}
+
+ItemToPurchase::ItemToPurchase(string itemName, int itemPrice, int itemQuantity) {
+	this->itemName = itemName;
+	this->itemPrice = itemPrice;
+	this->itemQuantity = itemQuantity;
+}
+
+void ItemToPurchase::SetName(string itemName) {
+	this->itemName = itemName;
+}
+
+string ItemToPurchase::GetName() {
+	return itemName;
+}
+
+void ItemToPurchase::SetPrice(int itemPrice) {
+	this->itemPrice = itemPrice;
+}
+
+int ItemToPurchase::GetPrice() {
+	return itemPrice;
+}
+
+void ItemToPurchase::SetQuantity(int itemQuantity) {
+	this->itemQuantity = itemQuantity;
+}
+
+int ItemToPurchase::GetQuantity() {
+	return itemQuantity;
+}
+
+
+
+// ItemToPurchase.h
+#ifndef ITEM_TO_PURCHASE_H
+#define ITEM_TO_PURCHASE_H
+
+#include <string>
+using namespace std;
+
+class ItemToPurchase {
+public:
+	ItemToPurchase();
+	ItemToPurchase(string itemName, int itemPrice, int itemQuantity);
+	void SetName(string itemName);
+	string GetName();
+	void SetPrice(int itemPrice);
+	int GetPrice();
+	void SetQuantity(int itemQuantity);
+	int GetQuantity();
+private:
+	string itemName;
+	int itemPrice;
+	int itemQuantity;
+};
+
+#endif
